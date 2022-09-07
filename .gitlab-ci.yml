@@ -1,7 +1,4 @@
-image: docker:20
-services:
-  - name: docker:20.10.6-dind
-
+image: node
 stages:
   - test
   - build
