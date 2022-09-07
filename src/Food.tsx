@@ -8,6 +8,7 @@ import {useEffect, useState} from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Button from "@mui/material/Button";
 import {DatePicker} from "@mui/x-date-pickers/DatePicker";
+import {Refresh} from "@mui/icons-material";
 
 export default function NewFood() {
     const paperStyle = {padding:'50px 20px',width:600, margin: "20px auto"}
@@ -83,7 +84,7 @@ export default function NewFood() {
                 </Button>
                 </form>
                 <h1>Übersicht</h1>
-                <button onClick={refreshPage}>Refresh</button>
+                <Button variant="contained" endIcon={<Refresh/>} onClick={refreshPage}>Aktualisieren</Button>
                     {foods.map(food=>(
                         <Paper elevation={6} style={{margin:"10px",padding: "15px", textAlign:"left"}} key={food['productid']}>
                             Id:{food['productid']}<br/>
