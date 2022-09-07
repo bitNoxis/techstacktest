@@ -7,7 +7,6 @@ import Paper from "@mui/material/Paper";
 import {useEffect, useState} from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Button from "@mui/material/Button";
-import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import {Refresh} from "@mui/icons-material";
 
 export default function NewFood() {
@@ -21,6 +20,7 @@ export default function NewFood() {
     }
 
 
+
     const [productname, setProductName]= useState(String);
     const [expirationdate, setExpirationDate] = useState(defaultValue);
     const food={productname, expirationdate}
@@ -28,6 +28,7 @@ export default function NewFood() {
 
     const handleClick=(e: { preventDefault: () => void; })=>{
         e.preventDefault()
+        window.location.reload();
 
         console.log(food)
         fetch("http://localhost:8080/food/add", {
@@ -87,9 +88,8 @@ export default function NewFood() {
                 <Button variant="contained" endIcon={<Refresh/>} onClick={refreshPage}>Aktualisieren</Button>
                     {foods.map(food=>(
                         <Paper elevation={6} style={{margin:"10px",padding: "15px", textAlign:"left"}} key={food['productid']}>
-                            Id:{food['productid']}<br/>
-                            Produkt:{food['productname']}<br/>
-                            Ablaufdatum:{food['expirationdate']}
+                            Produkt: {food['productname']}<br/>
+                            Ablaufdatum: {food['expirationdate']}
 
                         </Paper>
                     ))
