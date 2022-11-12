@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 import {Refresh} from "@mui/icons-material";
 
 export default function NewFood() {
-    const paperStyle = {padding:'50px 20px',width:600, margin: "20px auto"}
+    const paperStyle =  () => (<div className="paperstyle"></div>);
     const date = new Date();
     const actualDate = date.getDate();
     date.setDate(actualDate);
@@ -55,7 +55,7 @@ export default function NewFood() {
 
     return (
         <Container>
-            <Paper elevation={3} style={paperStyle}>
+            <Paper elevation={3}>
                 <form>
                 <h1>Produkt hinzufügen</h1>
                 <Box

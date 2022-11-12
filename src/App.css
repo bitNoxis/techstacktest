@@ -13,6 +13,13 @@
   }
 }
 
+@media screen and (max-width: 500px) {
+  :local(.paperstyle) {
+    width: 300px;
+  }
+  
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -35,4 +42,6 @@
   to {
     transform: rotate(360deg);
   }
+  
+  
 }
