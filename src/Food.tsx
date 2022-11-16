@@ -54,18 +54,19 @@ export default function NewFood() {
     },[])
 
 
-
-
+    const paperstyle = document.getElementById('paperstyle');
     const expdate = new Date(expirationdate)
-       if (expdate<(addDaysToDate(date, -2))){
-
-       };
+    if (expdate<(addDaysToDate(date, -2))){
+        // @ts-ignore
+        paperstyle.style.backgroundColor = 'red';
+    };
 
     function addDaysToDate(datetodate, daystodate){
         var res = new Date(datetodate);
-        res.setDate(res.getDate() + daystodate);
+        res.setDate(res.getDate() - daystodate);
         return res;
     }
+
     return (
         <Container>
             <Paper elevation={3}>
@@ -100,12 +101,9 @@ export default function NewFood() {
                 <h1>Übersicht</h1>
                 <Button variant="contained" endIcon={<Refresh/>} onClick={refreshPage}>Aktualisieren</Button>
                     {foods.map(food=>(
-
-
-                        <Paper elevation={6} style={{margin:"10px",padding: "15px", textAlign:"left", backgroundColor:"#ff0000"}} key={food['productid']}>
+                        <Paper elevation={6} style={{margin:"10px",padding: "15px", textAlign:"left"}} key={food['productid']}>
                             Produkt: {food['productname']}<br/>
                             Ablaufdatum: {food['expirationdate']}
-
                         </Paper>
                     ))
                     }
