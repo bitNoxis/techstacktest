@@ -19,12 +19,10 @@ export default function NewFood() {
         window.location.reload();
     }
 
-
-
     const [productname, setProductName]= useState(String);
     const [expirationdate, setExpirationDate] = useState(defaultValue);
     const food={productname, expirationdate}
-    const [foods, setFoods] = useState([]);
+    const [foods, setFoods] = useState([food]);
 
     const handleClick=(e: { preventDefault: () => void; })=>{
         e.preventDefault()
@@ -54,18 +52,6 @@ export default function NewFood() {
     },[])
 
 
-
-
-    const expdate = new Date(expirationdate)
-       if (expdate<(addDaysToDate(date, -2))){
-
-       };
-
-    function addDaysToDate(datetodate, daystodate){
-        var res = new Date(datetodate);
-        res.setDate(res.getDate() + daystodate);
-        return res;
-    }
     return (
         <Container>
             <Paper elevation={3}>
@@ -99,19 +85,42 @@ export default function NewFood() {
                 </form>
                 <h1>Übersicht</h1>
                 <Button variant="contained" endIcon={<Refresh/>} onClick={refreshPage}>Aktualisieren</Button>
-                    {foods.map(food=>(
-
-
-                        <Paper elevation={6} style={{margin:"10px",padding: "15px", textAlign:"left", backgroundColor:"#ff0000"}} key={food['productid']}>
-                            Produkt: {food['productname']}<br/>
-                            Ablaufdatum: {food['expirationdate']}
-
-                        </Paper>
-                    ))
+                    {foods.map(food=>
+                    ausgabe(food)
+                    )
                     }
 
 
             </Paper>
         </Container>
     );
+
+    function ausgabe(food:any)
+    {
+        if (datumsErzeugerAusString(food.expirationdate)< addDaysToDate(new Date(),-2)){
+            return(
+                <Paper elevation={6} style={{margin:"10px",padding: "15px", textAlign:"left", backgroundColor:"#ff0000"}} key={food['productid']}>
+                    Produkt: {food['productname']}<br/>
+                    Ablaufdatum: {food['expirationdate']}
+                </Paper>)
+        }
+        return (<Paper elevation={6} style={{margin:"10px",padding: "15px", textAlign:"left",}} key={food['productid']}>
+            Produkt: {food['productname']}<br/>
+            Ablaufdatum: {food['expirationdate']}
+        </Paper>)
+    }
+
+
+
+
+    function datumsErzeugerAusString(stringDatum){
+        const neuesDatum = new Date(stringDatum)
+        return neuesDatum;
+    }
+
+    function addDaysToDate(datetodate, daystodate){
+        var res = new Date(datetodate);
+        res.setDate(res.getDate() + daystodate);
+        return res;
+    }
 }
