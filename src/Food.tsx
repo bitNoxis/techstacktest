@@ -11,20 +11,15 @@ import {Refresh} from "@mui/icons-material";
 
 export default function NewFood() {
     const paperStyle =  () => (<div className="paperstyle"></div>);
-    const date = new Date();
-    const actualDate = date.getDate();
-    date.setDate(actualDate);
-    const defaultValue = date.toLocaleDateString('en-DE');
+    const defaultDatumsFormat = new Date().toLocaleDateString('en-DE');
     const refreshPage = ()=>{
         window.location.reload();
     }
 
-
-
     const [productname, setProductName]= useState(String);
-    const [expirationdate, setExpirationDate] = useState(defaultValue);
+    const [expirationdate, setExpirationDate] = useState(defaultDatumsFormat);
     const food={productname, expirationdate}
-    const [foods, setFoods] = useState([]);
+    const [foods, setFoods] = useState([food]);
 
     const handleClick=(e: { preventDefault: () => void; })=>{
         e.preventDefault()
@@ -53,19 +48,6 @@ export default function NewFood() {
             })
     },[])
 
-
-    const paperstyle = document.getElementById('paperstyle');
-    const expdate = new Date(expirationdate)
-    if (expdate<(addDaysToDate(date, -2))){
-        // @ts-ignore
-        paperstyle.style.backgroundColor = 'red';
-    };
-
-    function addDaysToDate(datetodate, daystodate){
-        var res = new Date(datetodate);
-        res.setDate(res.getDate() - daystodate);
-        return res;
-    }
 
     return (
         <Container>
@@ -100,16 +82,35 @@ export default function NewFood() {
                 </form>
                 <h1>Übersicht</h1>
                 <Button variant="contained" endIcon={<Refresh/>} onClick={refreshPage}>Aktualisieren</Button>
-                    {foods.map(food=>(
-                        <Paper elevation={6} style={{margin:"10px",padding: "15px", textAlign:"left"}} key={food['productid']}>
-                            Produkt: {food['productname']}<br/>
-                            Ablaufdatum: {food['expirationdate']}
-                        </Paper>
-                    ))
-                    }
-
-
             </Paper>
         </Container>
     );
+
+    function ausgabe(food:any)
+    {
+        if (datumsErzeugerAusString(food.expirationdate)< addDaysToDate(new Date(),-2)){
+            return(
+                <Paper elevation={6} style={{margin:"10px",padding: "15px", textAlign:"left", backgroundColor:"#ff0000"}} key={food['productid']}>
+                    Produkt: {food['productname']}<br/>
+                    Ablaufdatum: {food['expirationdate']}
+                </Paper>)
+        }
+
+        return (<Paper elevation={6} style={{margin:"10px",padding: "15px", textAlign:"left",}} key={food['productid']}>
+            Produkt: {food['productname']}<br/>
+            Ablaufdatum: {food['expirationdate']}
+        </Paper>)
+
+    }
+
+    function datumsErzeugerAusString(stringDatum){
+        const neuesDatum = new Date(stringDatum)
+        return neuesDatum;
+    }
+
+    function addDaysToDate(datetodate, daystodate){
+        var res = new Date(datetodate);
+        res.setDate(res.getDate() + daystodate);
+        return res;
+    }
 }
