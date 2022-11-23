@@ -11,16 +11,13 @@ import {Refresh} from "@mui/icons-material";
 
 export default function NewFood() {
     const paperStyle =  () => (<div className="paperstyle"></div>);
-    const date = new Date();
-    const actualDate = date.getDate();
-    date.setDate(actualDate);
-    const defaultValue = date.toLocaleDateString('en-DE');
+    const defaultDatumsFormat = new Date().toLocaleDateString('en-DE');
     const refreshPage = ()=>{
         window.location.reload();
     }
 
     const [productname, setProductName]= useState(String);
-    const [expirationdate, setExpirationDate] = useState(defaultValue);
+    const [expirationdate, setExpirationDate] = useState(defaultDatumsFormat);
     const food={productname, expirationdate}
     const [foods, setFoods] = useState([food]);
 
@@ -89,8 +86,6 @@ export default function NewFood() {
                     ausgabe(food)
                     )
                     }
-
-
             </Paper>
         </Container>
     );
@@ -104,14 +99,13 @@ export default function NewFood() {
                     Ablaufdatum: {food['expirationdate']}
                 </Paper>)
         }
+
         return (<Paper elevation={6} style={{margin:"10px",padding: "15px", textAlign:"left",}} key={food['productid']}>
             Produkt: {food['productname']}<br/>
             Ablaufdatum: {food['expirationdate']}
         </Paper>)
+
     }
-
-
-
 
     function datumsErzeugerAusString(stringDatum){
         const neuesDatum = new Date(stringDatum)
