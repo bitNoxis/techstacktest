@@ -82,10 +82,6 @@ export default function NewFood() {
                 </form>
                 <h1>Übersicht</h1>
                 <Button variant="contained" endIcon={<Refresh/>} onClick={refreshPage}>Aktualisieren</Button>
-                    {foods.map(food=>
-                    ausgabe(food)
-                    )
-                    }
             </Paper>
         </Container>
     );
