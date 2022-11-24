@@ -8,6 +8,8 @@ import {useEffect, useState} from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Button from "@mui/material/Button";
 import {Refresh} from "@mui/icons-material";
+import DeleteFoodButton from "./DeleteButton";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 export default function NewFood() {
     const paperStyle =  () => (<div className="paperstyle"></div>);
@@ -35,10 +37,20 @@ export default function NewFood() {
         })
     }
 
+    const handleClickDelete = (id)=> {
+        console.log(id)
+        fetch("http://localhost:8080/food/delete/"+id,
+            {method:"DELETE",headers:{"Accept":"application/json", "Content-Type":"application/json"}})
+            .then(()=> {
+                console.log("Food is deleted")
+            })
+    }
+
     const handleDateChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         console.log(event.target.value);
         setExpirationDate(event.target.value);
     };
+
 
     useEffect(()=> {
         fetch("http://localhost:8080/food/getAll")
@@ -76,6 +88,7 @@ export default function NewFood() {
                     }}
                 />
                 </Box>
+
                 <Button variant="contained" endIcon={<AddCircleIcon/>} onClick={handleClick}>
                     Hinzufügen
                 </Button>
@@ -92,11 +105,12 @@ export default function NewFood() {
 
     function ausgabe(food:any)
     {
-        if (datumsErzeugerAusString(food.expirationdate)< addDaysToDate(new Date(),-2)){
+        if (datumsErzeugerAusString(food.expirationdate)<= addDaysToDate(new Date(),2)){
             return(
                 <Paper elevation={6} style={{margin:"10px",padding: "15px", textAlign:"left", backgroundColor:"#ff0000"}} key={food['productid']}>
                     Produkt: {food['productname']}<br/>
                     Ablaufdatum: {food['expirationdate']}
+                    <Button variant="contained" endIcon={<DeleteForeverIcon/>} onClick={handleClickDelete(10)}/>
                 </Paper>)
         }
 
