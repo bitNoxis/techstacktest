@@ -10,8 +10,10 @@ import Button from "@mui/material/Button";
 import {Refresh} from "@mui/icons-material";
 import DeleteFoodButton from "./DeleteButton";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import IconButton from "@mui/material/IconButton";
 
 export default function NewFood() {
+
     const paperStyle =  () => (<div className="paperstyle"></div>);
     const defaultDatumsFormat = new Date().toLocaleDateString('en-DE');
     const refreshPage = ()=>{
@@ -22,6 +24,8 @@ export default function NewFood() {
     const [expirationdate, setExpirationDate] = useState(defaultDatumsFormat);
     const food={productname, expirationdate}
     const [foods, setFoods] = useState([food]);
+
+
 
     const handleClick=(e: { preventDefault: () => void; })=>{
         e.preventDefault()
@@ -40,7 +44,8 @@ export default function NewFood() {
     const handleClickDelete = (id)=> {
         console.log(id)
         fetch("http://localhost:8080/food/delete/"+id,
-            {method:"DELETE",headers:{"Accept":"application/json", "Content-Type":"application/json"}})
+            {method:"DELETE",
+                headers:{"Accept":"application/json", "Content-Type":"application/json"}})
             .then(()=> {
                 console.log("Food is deleted")
             })
@@ -111,13 +116,28 @@ export default function NewFood() {
                 <Paper elevation={6} style={{margin:"10px",padding: "15px", textAlign:"left", backgroundColor:"#ff0000"}} key={food['productid']}>
                     Produkt: {food['productname']}<br/>
                     Ablaufdatum: {food['expirationdate']}
-                    <Button variant={"contained"} endIcon={<DeleteForeverIcon/>} onClick={handleClickDelete}> Löschen </Button>
+                    <IconButton size="large"
+                                edge="start"
+                                color="inherit"
+                                aria-label="open drawer"
+                                sx={{mr: 2}}
+                                onClick={handleClickDelete}>
+                        <DeleteForeverIcon/>
+                                  </IconButton>
                 </Paper>)
         }
 
         return (<Paper elevation={6} style={{margin:"10px",padding: "15px", textAlign:"left",}} key={food['productid']}>
             Produkt: {food['productname']}<br/>
             Ablaufdatum: {food['expirationdate']}
+            <IconButton size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="open drawer"
+                        sx={{mr: 2}}
+                        onClick={this.handleClickDelete(10)}>
+                <DeleteForeverIcon/>
+            </IconButton>
         </Paper>)
 
     }
