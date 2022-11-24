@@ -106,11 +106,12 @@ export default function NewFood() {
     function ausgabe(food:any)
     {
         if (datumsErzeugerAusString(food.expirationdate)<= addDaysToDate(new Date(),2)){
+
             return(
                 <Paper elevation={6} style={{margin:"10px",padding: "15px", textAlign:"left", backgroundColor:"#ff0000"}} key={food['productid']}>
                     Produkt: {food['productname']}<br/>
                     Ablaufdatum: {food['expirationdate']}
-                    <Button variant="contained" endIcon={<DeleteForeverIcon/>} onClick={handleClickDelete(10)}/>
+                    <Button variant={"contained"} endIcon={<DeleteForeverIcon/>} onClick={handleClickDelete}> Löschen </Button>
                 </Paper>)
         }
 
