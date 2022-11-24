@@ -135,7 +135,7 @@ export default function NewFood() {
                         color="inherit"
                         aria-label="open drawer"
                         sx={{mr: 2}}
-                        onClick={this.handleClickDelete(10)}>
+                        onClick={handleClickDelete}>
                 <DeleteForeverIcon/>
             </IconButton>
         </Paper>)
